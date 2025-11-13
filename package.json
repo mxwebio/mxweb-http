@@ -1,0 +1,90 @@
+{
+  "name": "@mxweb/http",
+  "version": "1.0.0",
+  "description": "A powerful, type-safe HTTP client for JavaScript/TypeScript with support for interceptors, authentication, file uploads, and framework-agnostic storage",
+  "keywords": [
+    "http",
+    "http-client",
+    "fetch",
+    "ajax",
+    "xhr",
+    "request",
+    "typescript",
+    "type-safe",
+    "interceptor",
+    "authentication",
+    "file-upload",
+    "api-client",
+    "rest-client",
+    "axios-alternative",
+    "fetch-wrapper"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": "MXWeb Team <mxwebio@gmail.com>",
+  "homepage": "https://github.com/mxwebio/mxweb-http#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mxwebio/mxweb-http.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mxwebio/mxweb-http/issues"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "yarn clean && yarn lint && rollup -c",
+    "build:watch": "rollup -c -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,json,md}\"",
+    "prepublishOnly": "yarn build"
+  },
+  "peerDependencies": {
+    "@mxweb/utils": "^0.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@mxweb/utils": "^0.0.4",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/ui": "^4.0.8",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "glob": "^11.0.3",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.1.0",
+    "rollup": "^4.53.2",
+    "rollup-plugin-dts": "^6.2.3",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.8"
+  }
+}
