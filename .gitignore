@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+
+# Node modules
+node_modules
+
+# Build output
+dist
+build
+outputs
+
+# Test coverage
+coverage
+*.lcov
