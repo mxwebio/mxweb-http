@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-01-08
+
+### Added
+
+- **Lazy Endpoint Evaluation** - `HttpFactoryOptions.endpoint` now supports function type `(() => Record<string, unknown>)` for lazy evaluation, enabling proper integration with dependency injection and dynamic endpoint registration patterns
+
+### Changed
+
+- **Factory Endpoint Resolution** - Moved endpoint flattening inside the factory function to ensure fresh endpoints on each factory call
+
 ## [1.0.0] - 2025-11-13
 
 ### Added
