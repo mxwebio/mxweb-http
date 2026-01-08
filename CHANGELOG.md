@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-01-08
+
+### Added
+
+- **Transform Interceptor** - New `transform` interceptor type for transforming parsed response data before returning
+  - Supports both static (`Http.on("transform", ...)`) and instance-level interceptors
+  - Useful for unwrapping nested API responses (e.g., `{ data: T }` → `T`)
+  - Applied after data parsing and before response interceptors
+
 ## [1.0.1] - 2026-01-08
 
 ### Added
