@@ -606,20 +606,22 @@ export class Http {
         signal: modifiedOptions.signal,
       });
 
-      let data: T;
       const headers = response.headers;
       const contentType = headers.get("Content-Type") || "";
+      let originalData: unknown = null;
 
       if (contentType.includes("application/json")) {
-        data = (await response.json()) as unknown as T;
+        originalData = (await response.json()) as unknown as T;
       } else {
-        data = (await response.text()) as unknown as T;
+        originalData = (await response.text()) as unknown as T;
       }
 
       const allTransformInterceptors = [
         ...Http.interceptors.transform,
         ...this.interceptors.transform,
       ];
+
+      let data = originalData as T;
 
       for (const transform of allTransformInterceptors) {
         data = await transform(data);
@@ -640,25 +642,40 @@ export class Http {
 
       const success = modifiedResponse.ok;
 
+      let error: E | null = null;
+
+      if (!success) {
+        error = (originalData as { error: E }).error || (originalData as E);
+
+        const allInterceptors = [...Http.interceptors.error, ...this.interceptors.error];
+
+        for (const errorHandler of allInterceptors) {
+          error = await errorHandler(error);
+        }
+      }
+
       return {
         data,
         success,
-        error: success ? null : (data as unknown as E),
+        error: success ? null : (error as E),
         status: modifiedResponse.status,
         statusText: modifiedResponse.statusText,
         headers: resultHeaders,
       };
     } catch (error) {
+      let finalError = error instanceof Error ? error : new Error(String(error));
       const allInterceptors = [...Http.interceptors.error, ...this.interceptors.error];
+
       for (const errorHandler of allInterceptors) {
-        await errorHandler(error);
+        finalError = await errorHandler(finalError);
       }
+
       return {
         data: null as unknown as T,
         status: 0,
         statusText: "Error",
         headers: {},
-        error: error as E,
+        error: finalError as E,
         success: false,
       };
     }

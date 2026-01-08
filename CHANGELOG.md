@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-01-09
+
+### Changed
+
+- **Improved Error Handling** - Separate `originalData` from transformed `data` to preserve original response for error extraction
+- **Error Extraction Logic** - Extract error from `response.error` field or use full response as error when API returns non-ok status
+- **Error Interceptors Return Value** - Error interceptors now return modified error instead of just side effects, allowing error transformation chain
+- **Catch Block Enhancement** - Normalize caught exceptions to `Error` instances and pass through error interceptors before returning
+
 ## [1.0.2] - 2026-01-08
 
 ### Added
