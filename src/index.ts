@@ -145,7 +145,7 @@ export interface HttpFactoryOptions {
   baseURL?: string;
   http?: Http;
   storage?: HttpStorage | (() => Promise<HttpStorage> | HttpStorage);
-  endpoint?: Record<string, unknown>;
+  endpoint?: Record<string, unknown> | (() => Record<string, unknown>);
 }
 
 /**
@@ -1075,12 +1075,20 @@ export class Http {
    */
   static createFactory(options: HttpFactoryOptions = {}) {
     const instance = options.http || new Http(options.baseURL);
-    const urls = flatten(options.endpoint || {}) as Record<string, string>;
+
+    const getEndpoints = () => {
+      if (typeof options.endpoint === "function") {
+        return options.endpoint();
+      } else {
+        return options.endpoint || {};
+      }
+    };
 
     return function factory<T, Args extends any[] = [], E = unknown>(
       key: string,
       method?: HttpMethod | "UPLOAD"
     ): HttpFactory<T, Args, E> {
+      const urls = flatten(getEndpoints()) as Record<string, string>;
       const url = urls[key] as string;
 
       return {
