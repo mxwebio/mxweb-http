@@ -23,14 +23,7 @@ export default [
     rules: {
       ...tseslint.configs.recommended.rules,
       ...prettierConfig.rules,
-      "prettier/prettier": [
-        "error",
-        {
-          singleQuote: false,
-          semi: true,
-          trailingComma: "es5",
-        },
-      ],
+      "prettier/prettier": "error",
       "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/explicit-function-return-type": "off",

@@ -132,8 +132,10 @@ export interface HttpProgress {
  *
  * @since 0.0.1
  */
-export interface HttpUploadOptions
-  extends Pick<HttpRequest, "headers" | "params" | "signal" | "query"> {
+export interface HttpUploadOptions extends Pick<
+  HttpRequest,
+  "headers" | "params" | "signal" | "query"
+> {
   onProgress?: (progress: HttpProgress) => void;
   name: string;
   body?: Record<string, unknown>;
