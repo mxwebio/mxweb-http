@@ -1,6 +1,6 @@
 {
   "name": "@mxweb/http",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A powerful, type-safe HTTP client for JavaScript/TypeScript with support for interceptors, authentication, file uploads, and framework-agnostic storage",
   "keywords": [
     "http",
@@ -59,12 +59,12 @@
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
-    "@mxweb/utils": "^0.0.4"
+    "@mxweb/utils": "^0.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
-    "@mxweb/utils": "^0.0.4",
+    "@mxweb/utils": "^0.0.6",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
