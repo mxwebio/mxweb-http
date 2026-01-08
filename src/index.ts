@@ -79,6 +79,8 @@ export type HttpInterceptorRequest = (options: HttpRequest) => Promise<HttpReque
  */
 export type HttpInterceptorResponse = (response: Response) => Promise<Response> | Response;
 
+export type HttpInterceptorTransform = (data: any) => Promise<any> | any;
+
 /**
  * Interceptor function that handles errors during HTTP requests.
  *
@@ -94,6 +96,7 @@ export type HttpInterceptorError = (error: unknown) => Promise<any> | any;
 export type HttpInterceptorParameters =
   | ["request", HttpInterceptorRequest]
   | ["response", HttpInterceptorResponse]
+  | ["transform", HttpInterceptorTransform]
   | ["error", HttpInterceptorError];
 
 /**
@@ -240,12 +243,14 @@ export class Http {
   private static interceptors = {
     request: [] as HttpInterceptorRequest[],
     response: [] as HttpInterceptorResponse[],
+    transform: [] as HttpInterceptorTransform[],
     error: [] as HttpInterceptorError[],
   };
 
   private interceptors = {
     request: [] as HttpInterceptorRequest[],
     response: [] as HttpInterceptorResponse[],
+    transform: [] as HttpInterceptorTransform[],
     error: [] as HttpInterceptorError[],
   };
 
@@ -607,6 +612,15 @@ export class Http {
         data = (await response.json()) as unknown as T;
       } else {
         data = (await response.text()) as unknown as T;
+      }
+
+      const allTransformInterceptors = [
+        ...Http.interceptors.transform,
+        ...this.interceptors.transform,
+      ];
+
+      for (const transform of allTransformInterceptors) {
+        data = await transform(data);
       }
 
       const allResInterceptors = [...Http.interceptors.response, ...this.interceptors.response];
