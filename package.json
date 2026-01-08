@@ -1,6 +1,6 @@
 {
   "name": "@mxweb/http",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A powerful, type-safe HTTP client for JavaScript/TypeScript with support for interceptors, authentication, file uploads, and framework-agnostic storage",
   "keywords": [
     "http",
